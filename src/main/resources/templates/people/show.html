@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${person.FIO}"></title>
+</head>
+<body>
+<p th:text="'ФИО читателя: ' + ${person.getFIO()}"></p>
+<p th:text="'Год рождения читателя:' + ${person.getYear()}"></p>
+<p th:text="'ID читателя:' + ${person.getId_person()}"></p>
+<p>Книги читателя:</p>
+<div th:each="book : ${person.getBooks()}" th:unless="${person.getBooks().empty}" >
+    <a th:href="@{/books/{id}(id = ${book.getId_book()})}" th:text="${book.getName()}"></a>
+</div>
+<div th:if="${person.getBooks().empty}"><p>Книги отсутствуют!</p></div>
+<a th:href="@{/people/{id}/edit(id=${person.getId_person()})}" th:text="'Редактировать читателя'"></a>
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId_person()})}">
+    <input type="submit" value="Удалить читателя"/>
+</form>
+</body>
+</html>
+
